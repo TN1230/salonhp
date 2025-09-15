@@ -4,25 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hair Salon Lumière</title>
-
-    <!-- Favicon Settings -->
-    <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png">
-    <link rel="icon" href="fav/favicon.ico" sizes="any">
-
     <!-- Base and special fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@700&family=Zen+Old+Mincho:wght@700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* ロゴ画像のサイズ調整 */
-        .logo-link img {
-            height: 40px; /* ロゴの高さを指定 */
-            width: auto;
-            vertical-align: middle; /* ヘッダー内で垂直中央に配置 */
-        }
-    </style>
 </head>
 <body>
 
@@ -38,7 +24,7 @@
                 <a href="#access" class="nav-link nav-link-js">ACCESS</a>
             </nav>
             <button id="mobile-menu-btn" aria-label="メニューを開く">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
         <!-- モバイルメニュー -->
@@ -110,15 +96,15 @@
                     <h2 class="section-title">MENU</h2>
                     <p class="section-subtitle">おすすめのメニューをご紹介します</p>
                     <div class="menu-grid">
-                        <div class="menu-card menu-card-bg-1">
+                        <div class="menu-card">
                             <h3 class="card-title">カット</h3>
                             <p class="card-text">骨格や髪質に合わせた、再現性の高いスタイルをご提案します。</p>
                         </div>
-                        <div class="menu-card menu-card-bg-2">
+                        <div class="menu-card">
                             <h3 class="card-title">カラー</h3>
                             <p class="card-text">透明感のある色味からデザインカラーまで幅広く対応します。</p>
                         </div>
-                        <div class="menu-card menu-card-bg-3">
+                        <div class="menu-card">
                             <h3 class="card-title">トリートメント</h3>
                             <p class="card-text">髪の芯から補修し、うるおいとツヤのある美しい髪へ導きます。</p>
                         </div>
@@ -127,7 +113,7 @@
                 </div>
             </section>
 
-            <!-- ABOUT US -->
+            <!-- サロン紹介 -->
             <section class="about-section">
                  <div class="container about-inner">
                      <div class="about-img-wrap">
@@ -142,17 +128,18 @@
                  </div>
             </section>
             
-            <!-- STYLIST -->
+            <!-- オーナー紹介 -->
             <section class="stylist-section">
                 <div class="container">
                     <h2 class="section-title">STYLIST</h2>
+                     <p class="section-subtitle">オーナー紹介</p>
                     <div class="stylist-profile">
                         <div class="stylist-img-wrap">
                             <img src="image/owner-01.jpg" alt="オーナー 高橋 蓮">
                         </div>
                         <div class="stylist-text-wrap">
-                            <p class="stylist-position">Owner Stylist</p>
-                            <h3 class="stylist-name">高橋 蓮 / Ren Takahashi</h3>
+                            <p class="stylist-position">Owner / Stylist</p>
+                            <h3 class="stylist-name">高橋 蓮</h3>
                             <p class="stylist-bio">
                                 札幌市内のサロンで基礎を固めた後、さらなる技術を求め上京。東京・表参道の有名サロンに12年間在籍し、店長として多くの著名人やモデルのヘアを手がける。ファッション誌の撮影やヘアショーの経験も豊富。最先端のトレンドと個性を融合させた、エッジの効いたデザインカラーやショートスタイルを得意とする。地元北海道で、都会の洗練されたスタイルと心地よい空間を提供したいという想いから「Lumière」をオープン。
                             </p>
@@ -166,55 +153,59 @@
         <div id="menu-content" class="content-section hidden">
             <section class="page-section">
                 <div class="container">
-                    <div class="menu-header">
-                         <h2 class="salon-menu-title">SALON MENU</h2>
-                         <div class="menu-image-preview"></div>
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <h2 class="page-title" style="font-size: 2.5rem; font-weight: 700; color: #333; letter-spacing: 0.1em;">
+                            SALON MENU
+                        </h2>
                     </div>
-                    <div class="menu-list-container">
-                        <div class="menu-list">
-                             <div class="menu-item" data-image1="image/ct-01.jpg" data-image2="image/ct-02.jpg">
-                                <div>
-                                    <h3 class="menu-item-name">カット</h3>
-                                    <p class="menu-item-desc">シャンプー・ブロー込</p>
+                    <div class="menu-layout-container">
+                        <div class="menu-list-wrap">
+                            <div class="menu-list">
+                                <div class="menu-item" data-image1="image/ct-01.jpg" data-image2="image/ct-02.jpg">
+                                    <div>
+                                        <h3 class="menu-item-name">カット</h3>
+                                        <p class="menu-item-desc">シャンプー・ブロー込</p>
+                                    </div>
+                                    <p class="menu-item-price">¥6,600</p>
                                 </div>
-                                <p class="menu-item-price">¥6,600</p>
-                            </div>
-                            <div class="menu-item" data-image1="image/rt-01.jpg">
-                                <div>
-                                    <h3 class="menu-item-name">リタッチカラー</h3>
-                                    <p class="menu-item-desc">根元3cmまで</p>
+                                <div class="menu-item" data-image1="image/rt-01.jpg">
+                                    <div>
+                                        <h3 class="menu-item-name">リタッチカラー</h3>
+                                        <p class="menu-item-desc">根元3cmまで</p>
+                                    </div>
+                                    <p class="menu-item-price">¥7,700</p>
                                 </div>
-                                <p class="menu-item-price">¥7,700</p>
-                            </div>
-                            <div class="menu-item" data-image1="image/cl-01.jpg">
-                                <div>
-                                    <h3 class="menu-item-name">フルカラー</h3>
-                                    <p class="menu-item-desc">髪全体のカラーリング</p>
+                                <div class="menu-item" data-image1="image/cl-01.jpg">
+                                    <div>
+                                        <h3 class="menu-item-name">フルカラー</h3>
+                                        <p class="menu-item-desc">髪全体のカラーリング</p>
+                                    </div>
+                                    <p class="menu-item-price">¥8,800〜</p>
                                 </div>
-                                <p class="menu-item-price">¥8,800〜</p>
-                            </div>
-                            <div class="menu-item" data-image1="image/pm-01.jpg">
-                                <div>
-                                    <h3 class="menu-item-name">パーマ</h3>
-                                    <p class="menu-item-desc">カット込</p>
+                                <div class="menu-item" data-image1="image/pm-01.jpg">
+                                    <div>
+                                        <h3 class="menu-item-name">パーマ</h3>
+                                        <p class="menu-item-desc">カット込</p>
+                                    </div>
+                                    <p class="menu-item-price">¥13,200</p>
                                 </div>
-                                <p class="menu-item-price">¥13,200</p>
-                            </div>
-                            <div class="menu-item" data-image1="image/tr-01.jpg">
-                                <div>
-                                    <h3 class="menu-item-name">トリートメント</h3>
-                                    <p class="menu-item-desc">髪質改善・集中補修</p>
+                                <div class="menu-item" data-image1="image/tr-01.jpg">
+                                    <div>
+                                        <h3 class="menu-item-name">トリートメント</h3>
+                                        <p class="menu-item-desc">髪質改善・集中補修</p>
+                                    </div>
+                                    <p class="menu-item-price">¥5,500〜</p>
                                 </div>
-                                <p class="menu-item-price">¥5,500〜</p>
-                            </div>
-                             <div class="menu-item" data-image1="image/spa-01.jpg">
-                                <div>
-                                    <h3 class="menu-item-name">ヘッドスパ</h3>
-                                    <p class="menu-item-desc">頭皮のクレンジングとマッサージ</p>
+                                 <div class="menu-item" data-image1="image/spa-01.jpg">
+                                    <div>
+                                        <h3 class="menu-item-name">ヘッドスパ</h3>
+                                        <p class="menu-item-desc">頭皮のクレンジングとマッサージ</p>
+                                    </div>
+                                    <p class="menu-item-price">¥4,400</p>
                                 </div>
-                                <p class="menu-item-price">¥4,400</p>
                             </div>
                         </div>
+                        <div class="menu-image-preview"></div>
                     </div>
                 </div>
             </section>
@@ -225,48 +216,52 @@
             <section class="page-section">
                 <div class="container">
                     <h2 class="page-title">RESERVATION</h2>
-                    <div class="reserve-layout">
-                        <div class="form-wrapper">
-                            <div id="form-container" class="form-container">
-                                <form id="reservation-form">
-                                    <div class="form-group">
-                                        <label for="name" class="form-label">お名前 <span>*</span></label>
-                                        <input type="text" id="name" name="name" class="form-input" required>
-                                        <p id="name-error" class="error-msg hidden"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">メールアドレス <span>*</span></label>
-                                        <input type="email" id="email" name="email" class="form-input" required>
-                                        <p id="email-error" class="error-msg hidden"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="date" class="form-label">ご希望の日時 <span>*</span></label>
-                                        <input type="date" id="date" name="date" class="form-input" required>
-                                        <p id="date-error" class="error-msg hidden"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="menu-select" class="form-label">ご希望のメニュー <span>*</span></label>
-                                        <select id="menu-select" name="menu" class="form-select" required>
-                                            <option value="">メニューを選択してください</option>
-                                            <option value="cut">デザインカット</option>
-                                            <option value="color">オーガニックカラー</option>
-                                            <option value="perm">デジタルパーマ</option>
-                                            <option value="treatment">プレミアムトリートメント</option>
-                                            <option value="other">その他・相談</option>
-                                        </select>
-                                        <p id="menu-error" class="error-msg hidden"></p>
-                                    </div>
-                                    <button type="submit" class="btn-submit">予約内容を確認する</button>
-                                </form>
-                                <div id="success-message" class="success-msg hidden">
-                                    <h3>ご予約ありがとうございます</h3>
-                                    <p>ご入力いただいたメールアドレスに確認のご連絡をいたします。ご来店を心よりお待ちしております。</p>
-                                </div>
-                            </div>
+                    <div class="reservation-layout">
+                        <div class="reservation-info">
+                            <h3>ご予約について</h3>
+                            <p>
+                                Webからのご予約は24時間受け付けております。<br>
+                                ご希望のメニューと日時を選択の上、必要事項をご入力ください。<br><br>
+                                お電話でのご予約も承っております。お急ぎの場合やご不明な点がございましたら、お気軽にご連絡ください。
+                            </p>
                         </div>
-                        <div class="reserve-info">
-                            <img src="image/s-res.jpg" alt="予約ページのイメージ画像" class="reserve-image">
-                            <p>ご予約心よりお待ちしております。</p>
+                        <div id="form-container" class="form-container">
+                            <form id="reservation-form">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">お名前 <span>*</span></label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                    <p id="name-error" class="error-msg hidden"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">メールアドレス <span>*</span></label>
+                                    <input type="email" id="email" name="email" class="form-input" required>
+                                    <p id="email-error" class="error-msg hidden"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date" class="form-label">ご希望の日時 <span>*</span></label>
+                                    <input type="date" id="date" name="date" class="form-input" required>
+                                    <p id="date-error" class="error-msg hidden"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="menu-select" class="form-label">ご希望のメニュー <span>*</span></label>
+                                    <select id="menu-select" name="menu" class="form-select" required>
+                                        <option value="">メニューを選択してください</option>
+                                        <option value="cut">カット</option>
+                                        <option value="retouch-color">リタッチカラー</option>
+                                        <option value="full-color">フルカラー</option>
+                                        <option value="perm">パーマ</option>
+                                        <option value="treatment">トリートメント</option>
+                                        <option value="head-spa">ヘッドスパ</option>
+                                        <option value="other">その他・相談</option>
+                                    </select>
+                                    <p id="menu-error" class="error-msg hidden"></p>
+                                </div>
+                                <button type="submit" class="btn-submit">予約内容を確認する</button>
+                            </form>
+                            <div id="success-message" class="success-msg hidden">
+                                <h3>ご予約ありがとうございます</h3>
+                                <p>ご入力いただいたメールアドレスに確認のご連絡をいたします。ご来店を心よりお待ちしております。</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -324,6 +319,7 @@
     </footer>
     
     <script src="script.js"></script>
+
 </body>
 </html>
 
