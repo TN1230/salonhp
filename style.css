@@ -31,10 +31,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 110px; /* Adjusted header height */
+    min-height: 128px; /* Adjusted header height */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 .logo-link img {
-    height: 132px; /* Adjusted logo size */
+    height: 108px; /* Adjusted logo size */
     width: auto;
     display: block;
 }
@@ -134,7 +136,7 @@ body {
     overflow: hidden;
     background-color: #374151; 
 }
-@media(min-width: 768px) { .slideshow-container { height: calc(100vh - 110px); }}
+@media(min-width: 768px) { .slideshow-container { height: calc(100vh - 128px); }}
 
 .slide {
     display: none;
@@ -172,6 +174,7 @@ body {
     color: #ffffff;
 }
 .hero-title {
+    font-family: 'Zen Old Mincho', serif;
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.2;
@@ -242,14 +245,61 @@ body {
     padding: 2rem;
     border-radius: 0.5rem;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -2;
+}
+.menu-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+.menu-card-bg-1::before { background-image: url('image/ct-01.jpg'); }
+.menu-card-bg-2::before { background-image: url('image/cl-01.jpg'); }
+.menu-card-bg-3::before { background-image: url('image/tr-01.jpg'); }
+
+@media (min-width: 992px) {
+    .menu-card:hover::before, .menu-card:hover::after {
+        opacity: 1;
+    }
+    .menu-card:hover::before {
+        opacity: 0.2;
+    }
+    .menu-card:hover .card-title,
+    .menu-card:hover .card-text {
+        color: #ffffff;
+    }
 }
 .card-title {
     font-size: 1.5rem;
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+    transition: color 0.5s ease;
 }
-.card-text { color: #4B5563; margin: 0; }
+.card-text { 
+    color: #4B5563; 
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    transition: color 0.5s ease;
+}
 
 /* --- About Section (Home) --- */
 .about-section { padding: 4rem 0; }
@@ -274,7 +324,6 @@ body {
 /* --- Stylist Section (Home) --- */
 .stylist-section {
     padding: 4rem 0;
-    background-color: #ffffff;
 }
 .stylist-profile {
     display: grid;
@@ -322,7 +371,9 @@ body {
 .page-title { margin-bottom: 3rem; }
 
 /* Menu Page */
-.menu-list-wrap { max-width: 56rem; margin: 0 auto; }
+.menu-list-wrap { 
+    flex: 1;
+}
 .menu-list {
     background-color: #ffffff;
     border-radius: 0.5rem;
@@ -350,9 +401,11 @@ body {
 }
 
 /* Reserve Page */
-.form-container {
-    max-width: 42rem;
-    margin: 0 auto;
+#reserve-content .form-container {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
 }
 .form-group { margin-bottom: 1.5rem; }
 .form-label {
@@ -416,6 +469,7 @@ body {
 }
 .info-box {
     background-color: transparent;
+    padding: 0;
 }
 .info-list { list-style: none; padding: 0; margin: 0; }
 .info-item {
@@ -484,9 +538,7 @@ body {
     gap: 2rem;
     align-items: flex-start;
 }
-.menu-list-wrap {
-    width: 100%;
-}
+
 .menu-image-preview {
     width: 100%;
     position: sticky;
@@ -509,6 +561,14 @@ body {
     gap: 2.5rem;
     align-items: center;
 }
+.reservation-info {
+    text-align: center;
+}
+@media (min-width: 992px) {
+    .reservation-info {
+        text-align: left;
+    }
+}
 .reservation-info h3 {
     font-family: 'Shippori Mincho', serif;
     font-size: 1.75rem;
@@ -519,12 +579,7 @@ body {
     color: #555;
     line-height: 1.8;
 }
-#reserve-content .form-container {
-    background-color: #ffffff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-}
+
 
 @media (min-width: 992px) {
     .menu-layout-container {

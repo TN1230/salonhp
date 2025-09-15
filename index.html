@@ -7,7 +7,12 @@
     <!-- Base and special fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@700&family=Zen+Old+Mincho:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png">
+    <link rel="icon" type="image/vnd.microsoft.icon" sizes="16x16 24x24 32x32 48x48 64x64 128x128 256x256" href="fav/favicon.ico">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +21,7 @@
     <header class="header">
         <div class="container header-inner">
             <a href="#home" class="logo-link nav-link-js">
-                <img src="image/logo.jpg" alt="Hair Salon Lumière">
+                <img src="image/logo.jpg" alt="Hair Salon Lumière ロゴ">
             </a>
             <nav class="main-nav">
                 <a href="#menu" class="nav-link nav-link-js">MENU</a>
@@ -24,7 +29,7 @@
                 <a href="#access" class="nav-link nav-link-js">ACCESS</a>
             </nav>
             <button id="mobile-menu-btn" aria-label="メニューを開く">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
         <!-- モバイルメニュー -->
@@ -96,15 +101,15 @@
                     <h2 class="section-title">MENU</h2>
                     <p class="section-subtitle">おすすめのメニューをご紹介します</p>
                     <div class="menu-grid">
-                        <div class="menu-card">
+                        <div class="menu-card menu-card-bg-1">
                             <h3 class="card-title">カット</h3>
                             <p class="card-text">骨格や髪質に合わせた、再現性の高いスタイルをご提案します。</p>
                         </div>
-                        <div class="menu-card">
+                        <div class="menu-card menu-card-bg-2">
                             <h3 class="card-title">カラー</h3>
                             <p class="card-text">透明感のある色味からデザインカラーまで幅広く対応します。</p>
                         </div>
-                        <div class="menu-card">
+                        <div class="menu-card menu-card-bg-3">
                             <h3 class="card-title">トリートメント</h3>
                             <p class="card-text">髪の芯から補修し、うるおいとツヤのある美しい髪へ導きます。</p>
                         </div>
@@ -128,23 +133,22 @@
                  </div>
             </section>
             
-            <!-- オーナー紹介 -->
+            <!-- スタイリスト紹介 -->
             <section class="stylist-section">
                 <div class="container">
                     <h2 class="section-title">STYLIST</h2>
-                     <p class="section-subtitle">オーナー紹介</p>
-                    <div class="stylist-profile">
-                        <div class="stylist-img-wrap">
-                            <img src="image/owner-01.jpg" alt="オーナー 高橋 蓮">
-                        </div>
-                        <div class="stylist-text-wrap">
-                            <p class="stylist-position">Owner / Stylist</p>
-                            <h3 class="stylist-name">高橋 蓮</h3>
-                            <p class="stylist-bio">
+                     <div class="stylist-profile">
+                         <div class="stylist-img-wrap">
+                             <img src="image/owner-01.jpg" alt="オーナー 高橋 蓮">
+                         </div>
+                         <div class="stylist-text-wrap">
+                             <p class="stylist-position">OWNER STYLIST</p>
+                             <h3 class="stylist-name">高橋 蓮 / Ren Takahashi</h3>
+                             <p class="stylist-bio">
                                 札幌市内のサロンで基礎を固めた後、さらなる技術を求め上京。東京・表参道の有名サロンに12年間在籍し、店長として多くの著名人やモデルのヘアを手がける。ファッション誌の撮影やヘアショーの経験も豊富。最先端のトレンドと個性を融合させた、エッジの効いたデザインカラーやショートスタイルを得意とする。地元北海道で、都会の洗練されたスタイルと心地よい空間を提供したいという想いから「Lumière」をオープン。
-                            </p>
-                        </div>
-                    </div>
+                             </p>
+                         </div>
+                     </div>
                 </div>
             </section>
         </div>
@@ -153,11 +157,7 @@
         <div id="menu-content" class="content-section hidden">
             <section class="page-section">
                 <div class="container">
-                    <div style="text-align: center; margin-bottom: 3rem;">
-                        <h2 class="page-title" style="font-size: 2.5rem; font-weight: 700; color: #333; letter-spacing: 0.1em;">
-                            SALON MENU
-                        </h2>
-                    </div>
+                    <h2 class="page-title">SALON MENU</h2>
                     <div class="menu-layout-container">
                         <div class="menu-list-wrap">
                             <div class="menu-list">
@@ -205,7 +205,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="menu-image-preview"></div>
+                        <div class="menu-image-preview">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -319,7 +320,6 @@
     </footer>
     
     <script src="script.js"></script>
-
 </body>
 </html>
 
