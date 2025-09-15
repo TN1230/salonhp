@@ -1,543 +1,447 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hair Salon Lumière</title>
-    <!-- Base and special fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@700&family=Zen+Old+Mincho:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <!-- Style for menu image preview and h2 font override -->
-    <style>
-        .menu-layout-container {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
+/* --- Base Styles --- */
+body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #FEF6F8;
+    color: #374151;
+    margin: 0;
+    line-height: 1.6;
+}
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-sizing: border-box;
+}
+.hidden { display: none; }
+main { 
+    /* mainのmin-heightは不要になりました */
+} 
 
-        .menu-list-wrap {
-            flex: 1; 
-        }
+/* --- Header --- */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.logo-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #374151;
+    text-decoration: none;
+}
+.main-nav { display: none; }
+@media (min-width: 768px) {
+    .main-nav { display: flex; gap: 2rem; }
+}
+.nav-link {
+    color: #4B5563;
+    transition: color 0.3s;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    cursor: pointer;
+}
+.nav-link:hover { color: #EC4899; }
+.nav-link.active { color: #EC4899; font-weight: 700; }
 
-        .menu-image-preview {
-            flex-basis: 45%;
-            position: sticky;
-            top: 100px; /* Adjust based on header height */
-            display: none; /* Hidden on mobile by default */
-        }
+#mobile-menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #374151;
+}
+@media (min-width: 768px) { #mobile-menu-btn { display: none; } }
 
-        .menu-image-preview img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transition: opacity 0.4s ease;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-        }
-        
-        /* Unify all h2 elements to use Shippori Mincho font */
-        .section-title, .page-title {
-            font-family: 'Shippori Mincho', serif;
-        }
-        
-        /* Apply Zen Old Mincho to Hero Title */
-        .hero-title {
-            font-family: 'Zen Old Mincho', serif;
-        }
+#mobile-menu {
+    padding: 0.5rem 1.5rem 1rem;
+    background-color: white;
+    border-top: 1px solid #f3f4f6;
+}
+#mobile-menu a {
+    display: block;
+    padding: 0.75rem 0;
+    color: #4B5563;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+#mobile-menu a:hover { color: #EC4899; }
 
-        /* New styles for reservation page */
-        #reserve-content .page-section {
-            background-color: #f8f9fa;
-        }
+/* --- Buttons --- */
+.btn-primary, .btn-secondary, .btn-submit {
+    display: inline-block;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+}
+.btn-primary {
+    background-color: #EC4899;
+    color: #ffffff;
+}
+.btn-primary:hover { background-color: #DB2777; transform: scale(1.05); }
 
-        .reservation-layout {
-            display: grid;
-            grid-template-columns: 1fr; /* Default to single column for mobile */
-            gap: 2.5rem;
-            align-items: center;
-        }
+.btn-secondary {
+    background-color: #374151;
+    color: #ffffff;
+    margin-top: 3rem;
+}
+.btn-secondary:hover { background-color: #1F2937; }
 
-        .reservation-info h3 {
-            font-family: 'Shippori Mincho', serif;
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
+.btn-submit {
+    width: 100%;
+    background-color: #EC4899;
+    color: #ffffff;
+    font-size: 1.125rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.btn-submit:hover { background-color: #DB2777; }
 
-        .reservation-info p {
-            color: #555;
-            line-height: 1.8;
-        }
 
-        /* Card style for the form */
-        #reserve-content .form-container {
-            background-color: #ffffff;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-        }
+/* --- General Section Styles --- */
+.section-title, .page-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+.section-subtitle {
+    color: #4B5563;
+    text-align: center;
+    margin-bottom: 3rem;
+}
 
-        /* New styles for stylist section */
-        .stylist-section {
-            padding: 6rem 0;
-            background-color: #f8f9fa;
-        }
+/* --- Slideshow Section (Home) --- */
+.slideshow-container {
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+    background-color: #374151; /* 画像読み込み中の背景色 */
+}
+@media(min-width: 768px) { .slideshow-container { height: calc(100vh - 72px); }}
 
-        .stylist-inner {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: center;
-        }
+.slide {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* スライドの基本レイヤー */
+}
+.slide.active {
+    display: block;
+    animation: fade 1.5s ease-in-out;
+}
+@keyframes fade {
+    from { opacity: 0.4 }
+    to { opacity: 1 }
+}
 
-        .stylist-img-wrap {
-            width: 100%;
-            max-width: 400px;
-            order: 1; /* Image first on mobile */
-        }
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 2; /* 画像の上のオーバーレイ */
+}
+.hero-content {
+    position: relative;
+    z-index: 3; /* オーバーレイの上のテキストコンテンツ */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+}
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+@media(min-width: 768px) { .hero-title { font-size: 3.75rem; }}
+.hero-subtitle { font-size: 1.125rem; margin-bottom: 2rem; }
+@media(min-width: 768px) { .hero-subtitle { font-size: 1.25rem; }}
 
-        .stylist-img-wrap img {
-            width: 100%;
-            border-radius: 50%; /* Make image circular */
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-        }
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  z-index: 5; /* スライドやコンテンツより手前 */
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
 
-        .stylist-text-wrap {
-            text-align: center;
-            order: 2; /* Text second on mobile */
-        }
+/* Dots */
+.dots-container {
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    z-index: 5; /* スライドやコンテンツより手前 */
+}
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.dot.active, .dot:hover {
+  background-color: #ffffff;
+}
 
-        .stylist-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
 
-        .stylist-title {
-            color: #888;
-            margin-bottom: 1.5rem;
-        }
+/* --- Intro Section (Home) --- */
+.intro-section {
+    padding: 4rem 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+.menu-grid {
+    display: grid;
+    gap: 2rem;
+}
+@media (min-width: 768px) { .menu-grid { grid-template-columns: repeat(3, 1fr); } }
+.menu-card {
+    background-color: #FEF6F8;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.card-text { color: #4B5563; margin: 0; }
 
-        .stylist-bio {
-            text-align: left;
-            line-height: 1.9;
-            color: #555;
-        }
+/* --- About Section (Home) --- */
+.about-section { padding: 4rem 0; }
+.about-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+@media (min-width: 768px) { .about-inner { flex-direction: row; } }
+.about-img-wrap { flex: 1; }
+.about-img-wrap img {
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    display: block;
+}
+.about-text-wrap { flex: 1; text-align: center; }
+@media (min-width: 768px) { .about-text-wrap { text-align: left; } }
+.about-text { color: #4B5563; line-height: 1.8; }
 
-        /* 2-column layout for larger screens */
-        @media (min-width: 992px) {
-            .menu-image-preview {
-                display: block;
-            }
-            .menu-list-wrap {
-               flex-basis: 55%;
-            }
-            .reservation-layout {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .stylist-inner {
-                flex-direction: row-reverse; /* Image on the right */
-                text-align: left;
-                gap: 3rem;
-            }
-            .stylist-img-wrap {
-                order: 2;
-                flex: 0 0 35%;
-            }
-            .stylist-text-wrap {
-                order: 1;
-                flex: 1;
-                text-align: left;
-            }
-             .stylist-name {
-                margin-top: 0;
-            }
-        }
-    </style>
-</head>
-<body>
+/* --- Sub Pages (Menu, Reserve, Access) --- */
+.page-section { padding: 5rem 0; }
+.page-title { margin-bottom: 3rem; }
 
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="container header-inner">
-            <a href="#home" class="logo-link nav-link-js">Lumière</a>
-            <nav class="main-nav">
-                <a href="#menu" class="nav-link nav-link-js">MENU</a>
-                <a href="#reserve" class="nav-link nav-link-js">RESERVE</a>
-                <a href="#access" class="nav-link nav-link-js">ACCESS</a>
-            </nav>
-            <button id="mobile-menu-btn" aria-label="メニューを開く">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-        <!-- モバイルメニュー -->
-        <div id="mobile-menu" class="hidden">
-             <a href="#menu" class="nav-link-js">MENU</a>
-             <a href="#reserve" class="nav-link-js">RESERVE</a>
-             <a href="#access" class="nav-link-js">ACCESS</a>
-        </div>
-    </header>
+/* Menu Page */
+.menu-list-wrap { max-width: 56rem; margin: 0 auto; }
+.menu-list {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+}
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #FBCFE8;
+}
+.menu-item:last-child { border-bottom: none; }
+.menu-item-name { font-size: 1.25rem; font-weight: 700; margin: 0; }
+.menu-item-desc { color: #4B5563; margin: 0.25rem 0 0 0; }
+.menu-item-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #DB2777;
+    margin: 0;
+    white-space: nowrap;
+    padding-left: 1rem;
+}
 
-    <main>
-        <!-- Home Content -->
-        <div id="home-content" class="content-section">
-            <!-- スライドショー -->
-            <section class="slideshow-container">
-                <!-- Slide 1 -->
-                <div class="slide" style="background-image: url('image/s-001.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                        <h1 class="hero-title">昨日までの私に、さよならを。</h1>
-                        <p class="hero-subtitle">ヘアスタイルから、新しい一歩を踏み出す</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="slide" style="background-image: url('image/s-002.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                        <h1 class="hero-title">光を味方につける、透明感カラー。</h1>
-                        <p class="hero-subtitle">丁寧な施術で、日常がもっと輝き出す</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="slide" style="background-image: url('image/s-003.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                         <h1 class="hero-title">特別な一日を、最も美しい姿で。</h1>
-                        <p class="hero-subtitle">大切なイベントはプロの技術にお任せください</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="slide" style="background-image: url('image/s-004.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                        <h1 class="hero-title">仕事も、休日も。自分らしく切り替える。</h1>
-                        <p class="hero-subtitle">スタイリングで表情が変わる万能スタイルをご提案</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
+/* Reserve Page */
+.form-container {
+    max-width: 42rem;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+@media (min-width: 768px) { .form-container { padding: 3rem; } }
+.form-group { margin-bottom: 1.5rem; }
+.form-label {
+    display: block;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+.form-label span { color: #EF4444; }
+.form-input, .form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: inherit;
+}
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: #F472B6;
+    box-shadow: 0 0 0 2px #FBCFE8;
+}
+.input-error {
+    border-color: #EF4444;
+}
+.error-msg { color: #EF4444; font-size: 0.875rem; margin: 0.25rem 0 0 0; }
+.success-msg {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #D1FAE5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+.success-msg h3 { font-weight: 700; font-size: 1.125rem; margin: 0 0 0.5rem 0; }
+.success-msg p { margin: 0; }
 
-                <!-- Next/prev buttons -->
-                <a class="prev">&#10094;</a>
-                <a class="next">&#10095;</a>
+/* Access Page */
+.access-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+}
+@media (min-width: 768px) { .access-grid { grid-template-columns: repeat(2, 1fr); } }
+.map-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+.map-container iframe { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    border: 0; 
+}
+.info-box {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+.info-list { list-style: none; padding: 0; margin: 0; }
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+.info-item:last-child { margin-bottom: 0; }
+.info-label { font-weight: 700; width: 6rem; flex-shrink: 0; }
 
-                <!-- Dots -->
-                <div class="dots-container">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-            </section>
+/* --- Footer --- */
+.footer {
+    background-color: #374151;
+    color: #ffffff;
+    padding: 3rem 0;
+}
+.footer-inner {
+    text-align: center;
+}
+.footer-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.footer p { margin: 0.5rem 0; }
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.social-links a {
+    color: #ffffff;
+    transition: opacity 0.3s;
+}
+.social-links a:hover { opacity: 0.75; }
+.social-links svg { width: 1.5rem; height: 1.5rem; }
+.copyright {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    text-align: center;
+    margin-top: 2rem;
+}
 
-            <!-- メニュー紹介 -->
-            <section class="intro-section">
-                <div class="container">
-                    <h2 class="section-title">MENU</h2>
-                    <p class="section-subtitle">おすすめのメニューをご紹介します</p>
-                    <div class="menu-grid">
-                        <div class="menu-card">
-                            <h3 class="card-title">カット</h3>
-                            <p class="card-text">骨格や髪質に合わせた、再現性の高いスタイルをご提案します。</p>
-                        </div>
-                        <div class="menu-card">
-                            <h3 class="card-title">カラー</h3>
-                            <p class="card-text">透明感のある色味からデザインカラーまで幅広く対応します。</p>
-                        </div>
-                        <div class="menu-card">
-                            <h3 class="card-title">トリートメント</h3>
-                            <p class="card-text">髪の芯から補修し、うるおいとツヤのある美しい髪へ導きます。</p>
-                        </div>
-                    </div>
-                     <a href="#menu" class="btn-secondary nav-link-js">もっとメニューを見る</a>
-                </div>
-            </section>
+/* --- Page Transition --- */
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-            <!-- サロン紹介 -->
-            <section class="about-section">
-                 <div class="container about-inner">
-                     <div class="about-img-wrap">
-                         <img src="image/s-abs.jpg" alt="サロンの内装">
-                     </div>
-                     <div class="about-text-wrap">
-                         <h2 class="section-title">ABOUT US</h2>
-                         <p class="about-text">
-                            Lumière（ルミエール）は、フランス語で「光」を意味します。お客様一人ひとりが持つ本来の美しさを引き出し、日常がより一層輝くようなヘアスタイルをご提供したい。そんな想いを込めて、心地よい空間と確かな技術でお待ちしております。
-                         </p>
-                     </div>
-                 </div>
-            </section>
-            
-            <!-- オーナー紹介 -->
-            <section class="stylist-section">
-                <div class="container stylist-inner">
-                    <div class="stylist-img-wrap">
-                        <img src="image/owner-01.jpg" alt="オーナースタイリスト 高橋 蓮">
-                    </div>
-                    <div class="stylist-text-wrap">
-                        <h2 class="section-title">STYLIST</h2>
-                        <h3 class="stylist-name">高橋 蓮 / Ren Takahashi</h3>
-                        <p class="stylist-title">オーナースタイリスト</p>
-                        <p class="stylist-bio">
-                            札幌市内のサロンで基礎を固めた後、さらなる技術を求め上京。東京・表参道の有名サロンに12年間在籍し、店長として多くの著名人やモデルのヘアを手がける。ファッション誌の撮影やヘアショーの経験も豊富。最先端のトレンドと個性を融合させた、エッジの効いたデザインカラーやショートスタイルを得意とする。地元北海道で、都会の洗練されたスタイルと心地よい空間を提供したいという想いから「Lumière」をオープン。
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Menu Content -->
-        <div id="menu-content" class="content-section hidden">
-            <section class="page-section">
-                <div class="container">
-                    <div style="text-align: center; margin-bottom: 3rem;">
-                        <h2 class="page-title" style="font-size: 2.5rem; font-weight: 700; color: #333; letter-spacing: 0.1em;">
-                            SALON MENU
-                        </h2>
-                        <p style="font-size: 1rem; color: #777; margin-top: 0.5rem; letter-spacing: 0.05em;">
-                            Lumière
-                        </p>
-                    </div>
-                    <div class="menu-layout-container">
-                        <div class="menu-list-wrap">
-                            <div class="menu-list">
-                                <div class="menu-item" data-image="image/ct-01.jpg,image/ct-02.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">カット</h3>
-                                        <p class="menu-item-desc">シャンプー・ブロー込</p>
-                                    </div>
-                                    <p class="menu-item-price">¥6,600</p>
-                                </div>
-                                <div class="menu-item" data-image="image/rt-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">リタッチカラー</h3>
-                                        <p class="menu-item-desc">根元3cmまで</p>
-                                    </div>
-                                    <p class="menu-item-price">¥7,700</p>
-                                </div>
-                                <div class="menu-item" data-image="image/cl-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">フルカラー</h3>
-                                        <p class="menu-item-desc">髪全体のカラーリング</p>
-                                    </div>
-                                    <p class="menu-item-price">¥8,800〜</p>
-                                </div>
-                                <div class="menu-item" data-image="image/pm-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">パーマ</h3>
-                                        <p class="menu-item-desc">カット込</p>
-                                    </div>
-                                    <p class="menu-item-price">¥13,200</p>
-                                </div>
-                                <div class="menu-item" data-image="image/tr-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">トリートメント</h3>
-                                        <p class="menu-item-desc">髪質改善・集中補修</p>
-                                    </div>
-                                    <p class="menu-item-price">¥5,500〜</p>
-                                </div>
-                                 <div class="menu-item" data-image="image/spa-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">ヘッドスパ</h3>
-                                        <p class="menu-item-desc">頭皮のクレンジングとマッサージ</p>
-                                    </div>
-                                    <p class="menu-item-price">¥4,400</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-image-preview">
-                            <img id="menu-preview-image" src="image/ct-01.jpg" alt="仕上がりイメージ">
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Reservation Content -->
-        <div id="reserve-content" class="content-section hidden">
-            <section class="page-section">
-                <div class="container">
-                    <h2 class="page-title">RESERVATION</h2>
-                    <div class="reservation-layout">
-                        <div class="reservation-info">
-                            <h3>ご予約について</h3>
-                            <p>
-                                Webからのご予約は24時間受け付けております。<br>
-                                ご希望のメニューと日時を選択の上、必要事項をご入力ください。<br><br>
-                                お電話でのご予約も承っております。お急ぎの場合やご不明な点がございましたら、お気軽にご連絡ください。
-                            </p>
-                        </div>
-                        <div id="form-container" class="form-container">
-                            <form id="reservation-form">
-                                <div class="form-group">
-                                    <label for="name" class="form-label">お名前 <span>*</span></label>
-                                    <input type="text" id="name" name="name" class="form-input" required>
-                                    <p id="name-error" class="error-msg hidden"></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="form-label">メールアドレス <span>*</span></label>
-                                    <input type="email" id="email" name="email" class="form-input" required>
-                                    <p id="email-error" class="error-msg hidden"></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="date" class="form-label">ご希望の日時 <span>*</span></label>
-                                    <input type="date" id="date" name="date" class="form-input" required>
-                                    <p id="date-error" class="error-msg hidden"></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="menu-select" class="form-label">ご希望のメニュー <span>*</span></label>
-                                    <select id="menu-select" name="menu" class="form-select" required>
-                                        <option value="">メニューを選択してください</option>
-                                        <option value="cut">カット</option>
-                                        <option value="retouch-color">リタッチカラー</option>
-                                        <option value="full-color">フルカラー</option>
-                                        <option value="perm">パーマ</option>
-                                        <option value="treatment">トリートメント</option>
-                                        <option value="head-spa">ヘッドスパ</option>
-                                        <option value="other">その他・相談</option>
-                                    </select>
-                                    <p id="menu-error" class="error-msg hidden"></p>
-                                </div>
-                                <button type="submit" class="btn-submit">予約内容を確認する</button>
-                            </form>
-                            <div id="success-message" class="success-msg hidden">
-                                <h3>ご予約ありがとうございます</h3>
-                                <p>ご入力いただいたメールアドレスに確認のご連絡をいたします。ご来店を心よりお待ちしております。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Access Content -->
-        <div id="access-content" class="content-section hidden">
-             <section class="page-section">
-                <div class="container">
-                    <h2 class="page-title">ACCESS</h2>
-                    <div class="access-grid">
-                        <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2915.656511529237!2d141.3486182154794!3d43.05603797914644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0b298e1e1f76f7%3A0x6e35992634d3f54d!2z6L2s5Lu25Yy66Lyd5oSb55S6!5e0!3m2!1sja!2sjp!4v1663124847528!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        <div class="info-box">
-                            <ul class="info-list">
-                                <li class="info-item">
-                                    <span class="info-label">住所</span>
-                                    <span>〒060-0001 北海道札幌市中央区北1条西2丁目</span>
-                                </li>
-                                <li class="info-item">
-                                    <span class="info-label">営業時間</span>
-                                    <span>平日 10:00-20:00 / 土日祝 9:00-19:00</span>
-                                </li>
-                                <li class="info-item">
-                                    <span class="info-label">定休日</span>
-                                    <span>毎週火曜日、第3月曜日</span>
-                                </li>
-                                <li class="info-item">
-                                    <span class="info-label">電話番号</span>
-                                    <span>011-123-4567</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-    </main>
-
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <div class="footer-logo">Lumière</div>
-            <p>〒060-0001 北海道札幌市中央区北1条西2丁目</p>
-            <p>TEL: 011-123-4567</p>
-            <div class="social-links">
-                <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919 4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg></a>
-                <a href="#" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-            </div>
-            <p class="copyright">&copy; 2024 Hair Salon Lumière. All Rights Reserved.</p>
-        </div>
-    </footer>
-    
-    <script src="script.js"></script>
-    <script>
-    // Script for menu image preview
-    document.addEventListener('DOMContentLoaded', () => {
-        // This check ensures the script runs only on larger screens where the preview is visible
-        if (window.matchMedia('(min-width: 992px)').matches) {
-            const menuItems = document.querySelectorAll('#menu-content .menu-item');
-            const previewImage = document.getElementById('menu-preview-image');
-            const defaultImageSrc = previewImage.src;
-            let imageSliderInterval = null; // To hold the interval ID
-
-            if (menuItems.length > 0 && previewImage) {
-                menuItems.forEach(item => {
-                    item.addEventListener('mouseenter', () => {
-                        clearInterval(imageSliderInterval); // Clear any previous slideshow
-                        
-                        const imageUrlsString = item.getAttribute('data-image');
-                        const imageUrls = imageUrlsString.split(',');
-
-                        if (imageUrls.length > 1) {
-                            // It's a slideshow item (more than one image)
-                            let currentImageIndex = 0;
-
-                            const updateImage = () => {
-                                previewImage.style.opacity = 0;
-                                setTimeout(() => {
-                                    previewImage.src = imageUrls[currentImageIndex];
-                                    previewImage.style.opacity = 1;
-                                    currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
-                                }, 200);
-                            };
-
-                            updateImage(); // Show the first image immediately
-                            imageSliderInterval = setInterval(updateImage, 3000); // Change every 3 seconds
-
-                        } else {
-                            // It's a single image item
-                            const imageUrl = imageUrls[0];
-                            if (imageUrl && previewImage.src !== imageUrl) {
-                                 previewImage.style.opacity = 0;
-                                 setTimeout(() => {
-                                    previewImage.src = imageUrl;
-                                    previewImage.style.opacity = 1;
-                                }, 200);
-                            }
-                        }
-                    });
-                });
-
-                const menuList = document.querySelector('#menu-content .menu-list');
-                if (menuList) {
-                     menuList.addEventListener('mouseleave', () => {
-                        clearInterval(imageSliderInterval); // Stop the slideshow
-                        if (previewImage.src !== defaultImageSrc) {
-                            previewImage.style.opacity = 0;
-                            setTimeout(() => {
-                                previewImage.src = defaultImageSrc;
-                                previewImage.style.opacity = 1;
-                            }, 200);
-                        }
-                    });
-                }
-            }
-        }
-    });
-    </script>
-</body>
-</html>
+.page-enter-active {
+    animation: contentFadeIn 0.8s ease-out forwards;
+}
 
