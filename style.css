@@ -1,447 +1,222 @@
-/* --- Base Styles --- */
-body {
-    font-family: 'Noto Sans JP', 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #FEF6F8;
-    color: #374151;
-    margin: 0;
-    line-height: 1.6;
-}
-.container {
-    width: 100%;
-    max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    box-sizing: border-box;
-}
-.hidden { display: none; }
-main { 
-    /* mainのmin-heightは不要になりました */
-} 
+<!DOCTYPE html>
+<html lang="ja" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Dynamic クラフトコーヒー</title>
+    <!-- ファビコンの追加 -->
+    <link rel="icon" href="/fav/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 外部CSSファイルを読み込み -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="overflow-x-hidden">
 
-/* --- Header --- */
-.header {
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-}
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-.logo-link {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #374151;
-    text-decoration: none;
-}
-.main-nav { display: none; }
-@media (min-width: 768px) {
-    .main-nav { display: flex; gap: 2rem; }
-}
-.nav-link {
-    color: #4B5563;
-    transition: color 0.3s;
-    text-decoration: none;
-    padding: 0.5rem 0;
-    cursor: pointer;
-}
-.nav-link:hover { color: #EC4899; }
-.nav-link.active { color: #EC4899; font-weight: 700; }
+    <!-- ヒーローヘッダー -->
+    <header class="hero-bg h-screen w-full flex items-center justify-center text-white text-center p-4">
+        <div class="bg-black bg-opacity-40 p-6 sm:p-12 rounded-xl backdrop-blur-sm mx-4" data-aos="fade-up">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+                毎月届く、あなただけのクラフトコーヒー
+            </h1>
+            <p class="mt-4 sm:mt-6 text-base sm:text-xl md:text-2xl font-medium drop-shadow-md">
+                小規模焙煎所から直送される、最高の鮮度と香りを。
+            </p>
+            <a href="#plans" class="mt-8 sm:mt-12 inline-block px-8 py-4 bg-orange-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 animate-pulse-light">
+                今すぐ始める
+            </a>
+        </div>
+    </header>
 
-#mobile-menu-btn {
-    display: block;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: #374151;
-}
-@media (min-width: 768px) { #mobile-menu-btn { display: none; } }
+    <main class="container mx-auto px-4 py-12 sm:py-24 max-w-7xl">
 
-#mobile-menu {
-    padding: 0.5rem 1.5rem 1rem;
-    background-color: white;
-    border-top: 1px solid #f3f4f6;
-}
-#mobile-menu a {
-    display: block;
-    padding: 0.75rem 0;
-    color: #4B5563;
-    transition: color 0.3s;
-    text-decoration: none;
-}
-#mobile-menu a:hover { color: #EC4899; }
+        <!-- ブランドストーリー -->
+        <section class="text-center" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4">私たちのこだわり</h2>
+            <!-- CSSで画像を読み込むための空のdiv -->
+            <div class="brand-story-image my-8 rounded-xl overflow-hidden shadow-lg max-w-4xl mx-auto" data-aos="zoom-in">
+            </div>
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed">
+                コーヒーの美味しさを決めるのは「鮮度」です。大規模流通では失われがちな、焙煎したての最高の香りと味わいを、ご自宅にお届けしたい。Real Dynamicは、全国の小規模焙煎所と提携し、ご注文を受けてから丁寧に焙煎・梱包。街の隠れた名店とあなたを繋ぎ、毎日のコーヒータイムを特別な体験に変えます。
+            </p>
+        </section>
 
-/* --- Buttons --- */
-.btn-primary, .btn-secondary, .btn-submit {
-    display: inline-block;
-    font-weight: 700;
-    padding: 0.75rem 2rem;
-    border-radius: 9999px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-}
-.btn-primary {
-    background-color: #EC4899;
-    color: #ffffff;
-}
-.btn-primary:hover { background-color: #DB2777; transform: scale(1.05); }
+        <!-- サービスの流れ -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-12" data-aos="fade-up">サービスはたったの3ステップ</h2>
+            <div class="flex flex-col md:flex-row justify-center items-start md:space-x-8 space-y-12 md:space-y-0">
+                <div class="flex-1 max-w-sm" data-aos="fade-right">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5l-5-5 1.41-1.41L11 14.67l7.59-7.59L20 8.5l-9 9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1. お好みのプランを選ぶ</h3>
+                    <p class="text-sm text-gray-600">あなたのライフスタイルに合わせたプランを見つけてください。</p>
+                </div>
+                <div class="flex-1 max-w-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M22 6h-3.05l-4-4-2.47 2.47L11 5.41V2h-2v4H7V2H5v4H2c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 15H2V8h20v13zm-8-9c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm2-7V2h-4v4h4z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">2. 毎月ポストに届く</h3>
+                    <p class="text-sm text-gray-600">焙煎したての豆を、ご指定の住所へ直接お届けします。</p>
+                </div>
+                <div class="flex-1 max-w-sm" data-aos="fade-left" data-aos-delay="400">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5l-5-5 1.41-1.41L11 14.67l7.59-7.59L20 8.5l-9 9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">3. 自宅で淹れるだけ</h3>
+                    <p class="text-sm text-gray-600">こだわりの一杯が、あなたの日常を豊かに彩ります。</p>
+                </div>
+            </div>
+        </section>
 
-.btn-secondary {
-    background-color: #374151;
-    color: #ffffff;
-    margin-top: 3rem;
-}
-.btn-secondary:hover { background-color: #1F2937; }
+        <!-- 商品ラインナップ/プラン -->
+        <section id="plans" class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">商品ラインナップ</h2>
 
-.btn-submit {
-    width: 100%;
-    background-color: #EC4899;
-    color: #ffffff;
-    font-size: 1.125rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-.btn-submit:hover { background-color: #DB2777; }
+            <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-8 space-y-8 lg:space-y-0">
+                <!-- スタンダードプラン -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xs transition-all duration-300" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-2">スタンダード</h3>
+                    <p class="text-sm text-gray-500">まずは試したい方に</p>
+                    <p class="text-4xl font-extrabold text-orange-500 mt-4">
+                        ¥2,980<span class="text-base text-gray-500 font-normal">/月</span>
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">1杯あたり約150円</p>
+                    <ul class="text-left mt-6 space-y-2 text-gray-700">
+                        <li><span class="text-orange-500 font-bold">✓</span> 200g × 2種類 (計400g)</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 初回送料無料</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 毎月新しい豆との出会い</li>
+                    </ul>
+                    <a href="#" class="mt-8 inline-block w-full py-3 bg-gray-300 text-gray-600 font-bold rounded-lg hover:bg-gray-400 transition-all duration-300">
+                        このプランにする
+                    </a>
+                </div>
 
+                <!-- プレミアムプラン -->
+                <div class="relative bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm lg:scale-110 lg:z-10 border-4 border-orange-500 premium-card transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-4 -right-4 bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-full transform rotate-12 badge-wiggle-animation">
+                        人気No.1
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">プレミアム</h3>
+                    <p class="text-sm text-gray-500">毎月の新しい出会いを楽しみたい方に</p>
+                    <p class="text-5xl font-extrabold text-orange-500 mt-4">
+                        ¥4,980<span class="text-lg text-gray-500 font-normal">/月</span>
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">1杯あたり約120円</p>
+                    <ul class="text-left mt-6 space-y-2 text-gray-700">
+                        <li><span class="text-orange-500 font-bold">✓</span> 200g × 4種類 (計800g)</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 初回送料無料</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 毎月新しい豆との出会い</li>
+                        <li class="font-bold text-orange-600"><span class="text-orange-500 font-bold">✓</span> 初回限定ドリップバッグおまけ</li>
+                    </ul>
+                    <a href="#" class="mt-8 inline-block w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105">
+                        今すぐ始める
+                    </a>
+                </div>
+            </div>
+        </section>
 
-/* --- General Section Styles --- */
-.section-title, .page-title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    margin-top: 0;
-}
-.section-subtitle {
-    color: #4B5563;
-    text-align: center;
-    margin-bottom: 3rem;
-}
+        <!-- ライフスタイル写真/動画 -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">コーヒーが暮らしを変える</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- CSSで画像を読み込むための空のdiv -->
+                <div class="lifestyle-image-1 rounded-xl overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="100"></div>
+                <div class="lifestyle-image-2 rounded-xl overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="200"></div>
+                <div class="lifestyle-image-3 rounded-xl overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="300"></div>
+            </div>
+        </section>
 
-/* --- Slideshow Section (Home) --- */
-.slideshow-container {
-    position: relative;
-    height: 60vh;
-    overflow: hidden;
-    background-color: #374151; /* 画像読み込み中の背景色 */
-}
-@media(min-width: 768px) { .slideshow-container { height: calc(100vh - 72px); }}
+        <!-- お客様の声 -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">お客様の声</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up">
+                    <p class="text-sm font-light italic text-gray-600">
+                        "毎朝の習慣が変わりました！新しい豆が届くのが楽しみで、毎朝ワクワクしながら起きています。"
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-sm font-light italic text-gray-600">
+                        "様々な地域の豆を試せるのがいいですね。自分で選ぶ手間がなく、新しい出会いを楽しめるのが最高です。"
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-sm font-light italic text-gray-600">
+                        "鮮度が全然違います。淹れた瞬間の香りが部屋中に広がり、まるで焙煎所のようです。この品質でこの価格は信じられません。"
+                    </p>
+                </div>
+            </div>
+        </section>
 
-.slide {
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 1; /* スライドの基本レイヤー */
-}
-.slide.active {
-    display: block;
-    animation: fade 1.5s ease-in-out;
-}
-@keyframes fade {
-    from { opacity: 0.4 }
-    to { opacity: 1 }
-}
+        <!-- よくある質問 -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">よくある質問</h2>
+            <div class="max-w-3xl mx-auto text-left space-y-4">
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-right">
+                    <h3 class="text-lg font-semibold mb-2">Q. 解約はいつでもできますか？</h3>
+                    <p class="text-sm text-gray-600">A. はい、いつでもオンラインで簡単に解約手続きが可能です。最低契約期間はありませんのでご安心ください。</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-left">
+                    <h3 class="text-lg font-semibold mb-2">Q. 配送日を選ぶことはできますか？</h3>
+                    <p class="text-sm text-gray-600">A. はい、可能です。初回お申し込み時と、毎月のマイページからお届け日をご指定いただけます。</p>
+                    <div id="calendar" class="mt-4">
+                        <!-- カレンダーUIをここに実装 -->
+                        <div class="w-full bg-gray-100 p-4 rounded-lg text-center">
+                            <p class="font-semibold text-gray-700">お届け日選択カレンダー</p>
+                            <div class="grid grid-cols-7 gap-1 mt-2 text-xs text-gray-500">
+                                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 mt-1 text-sm font-bold">
+                                <div></div><div></div><div class="text-gray-400">1</div><div class="text-gray-400">2</div><div class="text-gray-400">3</div><div class="text-gray-400">4</div><div class="text-gray-400">5</div>
+                                <div class="p-2 rounded-full text-orange-500 bg-white shadow">6</div>
+                                <div class="p-2 rounded-full bg-orange-500 text-white shadow-lg">7</div>
+                                <div class="p-2 rounded-full bg-white shadow">8</div>
+                                <div class="p-2 rounded-full bg-white shadow">9</div>
+                                <div class="p-2 rounded-full bg-white shadow">10</div>
+                                <div class="p-2 rounded-full bg-white shadow">11</div>
+                                <div class="p-2 rounded-full bg-white shadow">12</div>
+                                <!-- ... and so on -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up">
+                    <h3 class="text-lg font-semibold mb-2">Q. どのような支払い方法がありますか？</h3>
+                    <p class="text-sm text-gray-600">A. クレジットカード（Visa, Mastercard, JCB, Amex）に対応しております。</p>
+                </div>
+            </div>
+        </section>
 
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0,0,0,0.3);
-    z-index: 2; /* 画像の上のオーバーレイ */
-}
-.hero-content {
-    position: relative;
-    z-index: 3; /* オーバーレイの上のテキストコンテンツ */
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #ffffff;
-}
-.hero-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-}
-@media(min-width: 768px) { .hero-title { font-size: 3.75rem; }}
-.hero-subtitle { font-size: 1.125rem; margin-bottom: 2rem; }
-@media(min-width: 768px) { .hero-subtitle { font-size: 1.25rem; }}
-
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 24px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  z-index: 5; /* スライドやコンテンツより手前 */
-}
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-/* Dots */
-.dots-container {
-    text-align: center;
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    z-index: 5; /* スライドやコンテンツより手前 */
-}
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-.dot.active, .dot:hover {
-  background-color: #ffffff;
-}
-
-
-/* --- Intro Section (Home) --- */
-.intro-section {
-    padding: 4rem 0;
-    background-color: #ffffff;
-    text-align: center;
-}
-.menu-grid {
-    display: grid;
-    gap: 2rem;
-}
-@media (min-width: 768px) { .menu-grid { grid-template-columns: repeat(3, 1fr); } }
-.menu-card {
-    background-color: #FEF6F8;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
-.card-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
-.card-text { color: #4B5563; margin: 0; }
-
-/* --- About Section (Home) --- */
-.about-section { padding: 4rem 0; }
-.about-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-}
-@media (min-width: 768px) { .about-inner { flex-direction: row; } }
-.about-img-wrap { flex: 1; }
-.about-img-wrap img {
-    width: 100%;
-    border-radius: 0.5rem;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-    display: block;
-}
-.about-text-wrap { flex: 1; text-align: center; }
-@media (min-width: 768px) { .about-text-wrap { text-align: left; } }
-.about-text { color: #4B5563; line-height: 1.8; }
-
-/* --- Sub Pages (Menu, Reserve, Access) --- */
-.page-section { padding: 5rem 0; }
-.page-title { margin-bottom: 3rem; }
-
-/* Menu Page */
-.menu-list-wrap { max-width: 56rem; margin: 0 auto; }
-.menu-list {
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    overflow: hidden;
-}
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #FBCFE8;
-}
-.menu-item:last-child { border-bottom: none; }
-.menu-item-name { font-size: 1.25rem; font-weight: 700; margin: 0; }
-.menu-item-desc { color: #4B5563; margin: 0.25rem 0 0 0; }
-.menu-item-price {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #DB2777;
-    margin: 0;
-    white-space: nowrap;
-    padding-left: 1rem;
-}
-
-/* Reserve Page */
-.form-container {
-    max-width: 42rem;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-}
-@media (min-width: 768px) { .form-container { padding: 3rem; } }
-.form-group { margin-bottom: 1.5rem; }
-.form-label {
-    display: block;
-    font-weight: 700;
-    color: #374151;
-    margin-bottom: 0.5rem;
-}
-.form-label span { color: #EF4444; }
-.form-input, .form-select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #D1D5DB;
-    border-radius: 0.5rem;
-    box-sizing: border-box;
-    font-size: 1rem;
-    font-family: inherit;
-}
-.form-input:focus, .form-select:focus {
-    outline: none;
-    border-color: #F472B6;
-    box-shadow: 0 0 0 2px #FBCFE8;
-}
-.input-error {
-    border-color: #EF4444;
-}
-.error-msg { color: #EF4444; font-size: 0.875rem; margin: 0.25rem 0 0 0; }
-.success-msg {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: #D1FAE5;
-    color: #065F46;
-    border: 1px solid #A7F3D0;
-    border-radius: 0.5rem;
-    text-align: center;
-}
-.success-msg h3 { font-weight: 700; font-size: 1.125rem; margin: 0 0 0.5rem 0; }
-.success-msg p { margin: 0; }
-
-/* Access Page */
-.access-grid {
-    display: grid;
-    gap: 3rem;
-    align-items: center;
-}
-@media (min-width: 768px) { .access-grid { grid-template-columns: repeat(2, 1fr); } }
-.map-container {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-}
-.map-container iframe { 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; 
-    height: 100%; 
-    border: 0; 
-}
-.info-box {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 0.5rem;
-}
-.info-list { list-style: none; padding: 0; margin: 0; }
-.info-item {
-    display: flex;
-    align-items: flex-start;
-    font-size: 1.125rem;
-    margin-bottom: 1rem;
-}
-.info-item:last-child { margin-bottom: 0; }
-.info-label { font-weight: 700; width: 6rem; flex-shrink: 0; }
-
-/* --- Footer --- */
-.footer {
-    background-color: #374151;
-    color: #ffffff;
-    padding: 3rem 0;
-}
-.footer-inner {
-    text-align: center;
-}
-.footer-logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-.footer p { margin: 0.5rem 0; }
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-.social-links a {
-    color: #ffffff;
-    transition: opacity 0.3s;
-}
-.social-links a:hover { opacity: 0.75; }
-.social-links svg { width: 1.5rem; height: 1.5rem; }
-.copyright {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    text-align: center;
-    margin-top: 2rem;
-}
-
-/* --- Page Transition --- */
-@keyframes contentFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.page-enter-active {
-    animation: contentFadeIn 0.8s ease-out forwards;
-}
-
+        <!-- クロージング/再CTA -->
+        <section class="mt-16 sm:mt-24 text-center bg-white p-8 rounded-2xl shadow-xl" data-aos="fade-up">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4">
+                今月の締め切りは<span class="text-orange-500">○月○日まで</span>！
+            </h2>
+            <p class="text-lg text-gray-600 mb-6">
+                多くのお客様に選ばれている<span class="font-bold text-orange-500">プレミアムプラン</span>なら、限定特典としてドリップバッグのおまけ付き！
+            </p>
+            <a href="#plans" class="inline-block px-10 py-4 bg-orange-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105">
+                        今すぐ始める
+                    </a>
+                </section>
+        
+            </main>
+        
+            <footer class="text-center py-8 text-gray-500 text-sm">
+                <p>&copy; 2023 Real Dynamic. All Rights Reserved.</p>
+            </footer>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50,
+                    });
+                });
+            </script>
+        </body>
+        </html>
