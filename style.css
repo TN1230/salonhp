@@ -18,6 +18,9 @@ body {
     box-sizing: border-box;
 }
 .hidden { display: none; }
+main { 
+    padding-top: 72px; /* ヘッダーの高さ分だけコンテンツ全体を下に移動 */
+} 
 
 /* --- Header --- */
 .header {
@@ -31,12 +34,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 128px; /* Adjusted header height */
+    height: 72px; /* ヘッダーの高さを72pxに固定 */
+    box-sizing: border-box;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+.logo-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #374151;
+    text-decoration: none;
+}
+/* ロゴ画像のサイズを適切に調整 */
 .logo-link img {
-    height: 108px; /* Adjusted logo size */
+    height: 48px;
     width: auto;
     display: block;
 }
@@ -116,7 +128,6 @@ body {
 
 /* --- General Section Styles --- */
 .section-title, .page-title {
-    font-family: 'Shippori Mincho', serif;
     font-size: 2.25rem;
     font-weight: 700;
     text-align: center;
@@ -134,9 +145,10 @@ body {
     position: relative;
     height: 60vh;
     overflow: hidden;
-    background-color: #374151; 
+    background-color: #374151; /* 画像読み込み中の背景色 */
+    margin-top: -72px; /* mainのpadding-top分を相殺してヘッダー直下に配置 */
 }
-@media(min-width: 768px) { .slideshow-container { height: calc(100vh - 128px); }}
+@media(min-width: 768px) { .slideshow-container { height: calc(100vh - 72px); }}
 
 .slide {
     display: none;
@@ -145,7 +157,7 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 1;
+    z-index: 1; /* スライドの基本レイヤー */
 }
 .slide.active {
     display: block;
@@ -160,11 +172,11 @@ body {
     position: absolute;
     inset: 0;
     background-color: rgba(0,0,0,0.3);
-    z-index: 2;
+    z-index: 2; /* 画像の上のオーバーレイ */
 }
 .hero-content {
     position: relative;
-    z-index: 3;
+    z-index: 3; /* オーバーレイの上のテキストコンテンツ */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -174,7 +186,6 @@ body {
     color: #ffffff;
 }
 .hero-title {
-    font-family: 'Zen Old Mincho', serif;
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.2;
@@ -184,6 +195,7 @@ body {
 .hero-subtitle { font-size: 1.125rem; margin-bottom: 2rem; }
 @media(min-width: 768px) { .hero-subtitle { font-size: 1.25rem; }}
 
+/* Next & previous buttons */
 .prev, .next {
   cursor: pointer;
   position: absolute;
@@ -197,7 +209,7 @@ body {
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
-  z-index: 5;
+  z-index: 5; /* スライドやコンテンツより手前 */
 }
 .next {
   right: 0;
@@ -207,12 +219,13 @@ body {
   background-color: rgba(0,0,0,0.8);
 }
 
+/* Dots */
 .dots-container {
     text-align: center;
     position: absolute;
     bottom: 20px;
     width: 100%;
-    z-index: 5;
+    z-index: 5; /* スライドやコンテンツより手前 */
 }
 .dot {
   cursor: pointer;
@@ -268,6 +281,7 @@ body {
     transition: opacity 0.5s ease;
     z-index: -1;
 }
+
 .menu-card-bg-1::before { background-image: url('image/ct-01.jpg'); }
 .menu-card-bg-2::before { background-image: url('image/cl-01.jpg'); }
 .menu-card-bg-3::before { background-image: url('image/tr-01.jpg'); }
@@ -330,7 +344,6 @@ body {
     grid-template-columns: 1fr;
     gap: 2rem;
     align-items: center;
-    background-color: transparent; /* Background set to transparent */
     text-align: center;
 }
 @media (min-width: 768px) { 
@@ -361,19 +374,25 @@ body {
     font-size: 2rem;
     margin: 0 0 1rem 0;
 }
-.stylist-bio {
+.stylist-bio, .stylist-comment {
     color: #4B5563;
     line-height: 1.8;
 }
+.stylist-comment {
+    margin-top: 1.5rem;
+    padding-left: 1.5rem;
+    border-left: 3px solid #FBCFE8;
+    font-style: italic;
+}
 
 /* --- Sub Pages (Menu, Reserve, Access) --- */
-.page-section { padding: 5rem 0; }
+.page-section { 
+    padding: 0.5rem 0 5rem; /* 上の余白を調整して、mainのpaddingと合わせて約5remになるようにする */
+}
 .page-title { margin-bottom: 3rem; }
 
 /* Menu Page */
-.menu-list-wrap { 
-    flex: 1;
-}
+.menu-list-wrap { max-width: 56rem; margin: 0 auto; }
 .menu-list {
     background-color: #ffffff;
     border-radius: 0.5rem;
@@ -386,7 +405,6 @@ body {
     align-items: center;
     padding: 1.5rem;
     border-bottom: 1px solid #FBCFE8;
-    cursor: pointer;
 }
 .menu-item:last-child { border-bottom: none; }
 .menu-item-name { font-size: 1.25rem; font-weight: 700; margin: 0; }
@@ -401,12 +419,15 @@ body {
 }
 
 /* Reserve Page */
-#reserve-content .form-container {
+.form-container {
+    max-width: 42rem;
+    margin: 0 auto;
     background-color: #ffffff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
+@media (min-width: 768px) { .form-container { padding: 3rem; } }
 .form-group { margin-bottom: 1.5rem; }
 .form-label {
     display: block;
@@ -434,6 +455,7 @@ body {
 }
 .error-msg { color: #EF4444; font-size: 0.875rem; margin: 0.25rem 0 0 0; }
 .success-msg {
+    margin-top: 1.5rem;
     padding: 1rem;
     background-color: #D1FAE5;
     color: #065F46;
@@ -468,8 +490,9 @@ body {
     border: 0; 
 }
 .info-box {
-    background-color: transparent;
-    padding: 0;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
 }
 .info-list { list-style: none; padding: 0; margin: 0; }
 .info-item {
@@ -529,70 +552,5 @@ body {
 
 .page-enter-active {
     animation: contentFadeIn 0.8s ease-out forwards;
-}
-
-/* --- Specific Page Layouts --- */
-.menu-layout-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
-}
-
-.menu-image-preview {
-    width: 100%;
-    position: sticky;
-    top: 130px; /* Adjusted for standard header */
-    background-color: #f0f0f0;
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transition: background-image 0.4s ease;
-    aspect-ratio: 4 / 3;
-}
-
-#reserve-content .page-section {
-    background-color: #f8f9fa;
-}
-.reservation-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    align-items: center;
-}
-.reservation-info {
-    text-align: center;
-}
-@media (min-width: 992px) {
-    .reservation-info {
-        text-align: left;
-    }
-}
-.reservation-info h3 {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    color: #333;
-}
-.reservation-info p {
-    color: #555;
-    line-height: 1.8;
-}
-
-
-@media (min-width: 992px) {
-    .menu-layout-container {
-        flex-direction: row;
-    }
-    .menu-list-wrap {
-       flex-basis: 55%;
-    }
-    .menu-image-preview {
-        flex-basis: 45%;
-    }
-    .reservation-layout {
-        grid-template-columns: 1fr 1fr;
-    }
 }
 
