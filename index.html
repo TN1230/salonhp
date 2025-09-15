@@ -1,543 +1,222 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hair Salon Lumière</title>
-    <!-- Base and special fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@700&family=Zen+Old+Mincho:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <!-- Style for menu image preview and h2 font override -->
-    <style>
-        .menu-layout-container {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-
-        .menu-list-wrap {
-            flex: 1; 
-        }
-
-        .menu-image-preview {
-            flex-basis: 45%;
-            position: sticky;
-            top: 100px; /* Adjust based on header height */
-            display: none; /* Hidden on mobile by default */
-        }
-
-        .menu-image-preview img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transition: opacity 0.4s ease;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-        }
-        
-        /* Unify all h2 elements to use Shippori Mincho font */
-        .section-title, .page-title {
-            font-family: 'Shippori Mincho', serif;
-        }
-        
-        /* Apply Zen Old Mincho to Hero Title */
-        .hero-title {
-            font-family: 'Zen Old Mincho', serif;
-        }
-
-        /* New styles for reservation page */
-        #reserve-content .page-section {
-            background-color: #f8f9fa;
-        }
-
-        .reservation-layout {
-            display: grid;
-            grid-template-columns: 1fr; /* Default to single column for mobile */
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .reservation-info h3 {
-            font-family: 'Shippori Mincho', serif;
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .reservation-info p {
-            color: #555;
-            line-height: 1.8;
-        }
-
-        /* Card style for the form */
-        #reserve-content .form-container {
-            background-color: #ffffff;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-        }
-
-        /* New styles for stylist section */
-        .stylist-section {
-            padding: 6rem 0;
-            background-color: #f8f9fa;
-        }
-
-        .stylist-inner {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .stylist-img-wrap {
-            width: 100%;
-            max-width: 400px;
-            order: 1; /* Image first on mobile */
-        }
-
-        .stylist-img-wrap img {
-            width: 100%;
-            border-radius: 50%; /* Make image circular */
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-        }
-
-        .stylist-text-wrap {
-            text-align: center;
-            order: 2; /* Text second on mobile */
-        }
-
-        .stylist-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .stylist-title {
-            color: #888;
-            margin-bottom: 1.5rem;
-        }
-
-        .stylist-bio {
-            text-align: left;
-            line-height: 1.9;
-            color: #555;
-        }
-
-        /* 2-column layout for larger screens */
-        @media (min-width: 992px) {
-            .menu-image-preview {
-                display: block;
-            }
-            .menu-list-wrap {
-               flex-basis: 55%;
-            }
-            .reservation-layout {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .stylist-inner {
-                flex-direction: row-reverse; /* Image on the right */
-                text-align: left;
-                gap: 3rem;
-            }
-            .stylist-img-wrap {
-                order: 2;
-                flex: 0 0 35%;
-            }
-            .stylist-text-wrap {
-                order: 1;
-                flex: 1;
-                text-align: left;
-            }
-             .stylist-name {
-                margin-top: 0;
-            }
-        }
-    </style>
+    <title>Real Dynamic クラフトコーヒー</title>
+    <!-- ファビコンの追加 -->
+    <link rel="icon" href="/fav/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 外部CSSファイルを読み込み -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="container header-inner">
-            <a href="#home" class="logo-link nav-link-js">Lumière</a>
-            <nav class="main-nav">
-                <a href="#menu" class="nav-link nav-link-js">MENU</a>
-                <a href="#reserve" class="nav-link nav-link-js">RESERVE</a>
-                <a href="#access" class="nav-link nav-link-js">ACCESS</a>
-            </nav>
-            <button id="mobile-menu-btn" aria-label="メニューを開く">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-        <!-- モバイルメニュー -->
-        <div id="mobile-menu" class="hidden">
-             <a href="#menu" class="nav-link-js">MENU</a>
-             <a href="#reserve" class="nav-link-js">RESERVE</a>
-             <a href="#access" class="nav-link-js">ACCESS</a>
+    <!-- ヒーローヘッダー -->
+    <header class="hero-bg h-screen w-full flex items-center justify-center text-white text-center p-4">
+        <div class="bg-black bg-opacity-40 p-6 sm:p-12 rounded-xl backdrop-blur-sm mx-4" data-aos="fade-up">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+                毎月届く、あなただけのクラフトコーヒー
+            </h1>
+            <p class="mt-4 sm:mt-6 text-base sm:text-xl md:text-2xl font-medium drop-shadow-md">
+                小規模焙煎所から直送される、最高の鮮度と香りを。
+            </p>
+            <a href="#plans" class="mt-8 sm:mt-12 inline-block px-8 py-4 bg-orange-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 animate-pulse-light">
+                今すぐ始める
+            </a>
         </div>
     </header>
 
-    <main>
-        <!-- Home Content -->
-        <div id="home-content" class="content-section">
-            <!-- スライドショー -->
-            <section class="slideshow-container">
-                <!-- Slide 1 -->
-                <div class="slide" style="background-image: url('image/s-001.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                        <h1 class="hero-title">昨日までの私に、さよならを。</h1>
-                        <p class="hero-subtitle">ヘアスタイルから、新しい一歩を踏み出す</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="slide" style="background-image: url('image/s-002.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                        <h1 class="hero-title">光を味方につける、透明感カラー。</h1>
-                        <p class="hero-subtitle">丁寧な施術で、日常がもっと輝き出す</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="slide" style="background-image: url('image/s-003.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                         <h1 class="hero-title">特別な一日を、最も美しい姿で。</h1>
-                        <p class="hero-subtitle">大切なイベントはプロの技術にお任せください</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="slide" style="background-image: url('image/s-004.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-content">
-                        <h1 class="hero-title">仕事も、休日も。自分らしく切り替える。</h1>
-                        <p class="hero-subtitle">スタイリングで表情が変わる万能スタイルをご提案</p>
-                        <a href="#reserve" class="btn-primary nav-link-js">今すぐ予約する</a>
-                    </div>
-                </div>
+    <main class="container mx-auto px-4 py-12 sm:py-24 max-w-7xl">
 
-                <!-- Next/prev buttons -->
-                <a class="prev">&#10094;</a>
-                <a class="next">&#10095;</a>
-
-                <!-- Dots -->
-                <div class="dots-container">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-            </section>
-
-            <!-- メニュー紹介 -->
-            <section class="intro-section">
-                <div class="container">
-                    <h2 class="section-title">MENU</h2>
-                    <p class="section-subtitle">おすすめのメニューをご紹介します</p>
-                    <div class="menu-grid">
-                        <div class="menu-card">
-                            <h3 class="card-title">カット</h3>
-                            <p class="card-text">骨格や髪質に合わせた、再現性の高いスタイルをご提案します。</p>
-                        </div>
-                        <div class="menu-card">
-                            <h3 class="card-title">カラー</h3>
-                            <p class="card-text">透明感のある色味からデザインカラーまで幅広く対応します。</p>
-                        </div>
-                        <div class="menu-card">
-                            <h3 class="card-title">トリートメント</h3>
-                            <p class="card-text">髪の芯から補修し、うるおいとツヤのある美しい髪へ導きます。</p>
-                        </div>
-                    </div>
-                     <a href="#menu" class="btn-secondary nav-link-js">もっとメニューを見る</a>
-                </div>
-            </section>
-
-            <!-- サロン紹介 -->
-            <section class="about-section">
-                 <div class="container about-inner">
-                     <div class="about-img-wrap">
-                         <img src="image/s-abs.jpg" alt="サロンの内装">
-                     </div>
-                     <div class="about-text-wrap">
-                         <h2 class="section-title">ABOUT US</h2>
-                         <p class="about-text">
-                            Lumière（ルミエール）は、フランス語で「光」を意味します。お客様一人ひとりが持つ本来の美しさを引き出し、日常がより一層輝くようなヘアスタイルをご提供したい。そんな想いを込めて、心地よい空間と確かな技術でお待ちしております。
-                         </p>
-                     </div>
-                 </div>
-            </section>
-            
-            <!-- オーナー紹介 -->
-            <section class="stylist-section">
-                <div class="container stylist-inner">
-                    <div class="stylist-img-wrap">
-                        <img src="image/owner-01.jpg" alt="オーナースタイリスト 高橋 蓮">
-                    </div>
-                    <div class="stylist-text-wrap">
-                        <h2 class="section-title">STYLIST</h2>
-                        <h3 class="stylist-name">高橋 蓮 / Ren Takahashi</h3>
-                        <p class="stylist-title">オーナースタイリスト</p>
-                        <p class="stylist-bio">
-                            札幌市内のサロンで基礎を固めた後、さらなる技術を求め上京。東京・表参道の有名サロンに12年間在籍し、店長として多くの著名人やモデルのヘアを手がける。ファッション誌の撮影やヘアショーの経験も豊富。最先端のトレンドと個性を融合させた、エッジの効いたデザインカラーやショートスタイルを得意とする。地元北海道で、都会の洗練されたスタイルと心地よい空間を提供したいという想いから「Lumière」をオープン。
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Menu Content -->
-        <div id="menu-content" class="content-section hidden">
-            <section class="page-section">
-                <div class="container">
-                    <div style="text-align: center; margin-bottom: 3rem;">
-                        <h2 class="page-title" style="font-size: 2.5rem; font-weight: 700; color: #333; letter-spacing: 0.1em;">
-                            SALON MENU
-                        </h2>
-                        <p style="font-size: 1rem; color: #777; margin-top: 0.5rem; letter-spacing: 0.05em;">
-                            Lumière
-                        </p>
-                    </div>
-                    <div class="menu-layout-container">
-                        <div class="menu-list-wrap">
-                            <div class="menu-list">
-                                <div class="menu-item" data-image="image/ct-01.jpg,image/ct-02.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">カット</h3>
-                                        <p class="menu-item-desc">シャンプー・ブロー込</p>
-                                    </div>
-                                    <p class="menu-item-price">¥6,600</p>
-                                </div>
-                                <div class="menu-item" data-image="image/rt-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">リタッチカラー</h3>
-                                        <p class="menu-item-desc">根元3cmまで</p>
-                                    </div>
-                                    <p class="menu-item-price">¥7,700</p>
-                                </div>
-                                <div class="menu-item" data-image="image/cl-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">フルカラー</h3>
-                                        <p class="menu-item-desc">髪全体のカラーリング</p>
-                                    </div>
-                                    <p class="menu-item-price">¥8,800〜</p>
-                                </div>
-                                <div class="menu-item" data-image="image/pm-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">パーマ</h3>
-                                        <p class="menu-item-desc">カット込</p>
-                                    </div>
-                                    <p class="menu-item-price">¥13,200</p>
-                                </div>
-                                <div class="menu-item" data-image="image/tr-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">トリートメント</h3>
-                                        <p class="menu-item-desc">髪質改善・集中補修</p>
-                                    </div>
-                                    <p class="menu-item-price">¥5,500〜</p>
-                                </div>
-                                 <div class="menu-item" data-image="image/spa-01.jpg">
-                                    <div>
-                                        <h3 class="menu-item-name">ヘッドスパ</h3>
-                                        <p class="menu-item-desc">頭皮のクレンジングとマッサージ</p>
-                                    </div>
-                                    <p class="menu-item-price">¥4,400</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-image-preview">
-                            <img id="menu-preview-image" src="image/ct-01.jpg" alt="仕上がりイメージ">
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Reservation Content -->
-        <div id="reserve-content" class="content-section hidden">
-            <section class="page-section">
-                <div class="container">
-                    <h2 class="page-title">RESERVATION</h2>
-                    <div class="reservation-layout">
-                        <div class="reservation-info">
-                            <h3>ご予約について</h3>
-                            <p>
-                                Webからのご予約は24時間受け付けております。<br>
-                                ご希望のメニューと日時を選択の上、必要事項をご入力ください。<br><br>
-                                お電話でのご予約も承っております。お急ぎの場合やご不明な点がございましたら、お気軽にご連絡ください。
-                            </p>
-                        </div>
-                        <div id="form-container" class="form-container">
-                            <form id="reservation-form">
-                                <div class="form-group">
-                                    <label for="name" class="form-label">お名前 <span>*</span></label>
-                                    <input type="text" id="name" name="name" class="form-input" required>
-                                    <p id="name-error" class="error-msg hidden"></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="form-label">メールアドレス <span>*</span></label>
-                                    <input type="email" id="email" name="email" class="form-input" required>
-                                    <p id="email-error" class="error-msg hidden"></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="date" class="form-label">ご希望の日時 <span>*</span></label>
-                                    <input type="date" id="date" name="date" class="form-input" required>
-                                    <p id="date-error" class="error-msg hidden"></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="menu-select" class="form-label">ご希望のメニュー <span>*</span></label>
-                                    <select id="menu-select" name="menu" class="form-select" required>
-                                        <option value="">メニューを選択してください</option>
-                                        <option value="cut">カット</option>
-                                        <option value="retouch-color">リタッチカラー</option>
-                                        <option value="full-color">フルカラー</option>
-                                        <option value="perm">パーマ</option>
-                                        <option value="treatment">トリートメント</option>
-                                        <option value="head-spa">ヘッドスパ</option>
-                                        <option value="other">その他・相談</option>
-                                    </select>
-                                    <p id="menu-error" class="error-msg hidden"></p>
-                                </div>
-                                <button type="submit" class="btn-submit">予約内容を確認する</button>
-                            </form>
-                            <div id="success-message" class="success-msg hidden">
-                                <h3>ご予約ありがとうございます</h3>
-                                <p>ご入力いただいたメールアドレスに確認のご連絡をいたします。ご来店を心よりお待ちしております。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Access Content -->
-        <div id="access-content" class="content-section hidden">
-             <section class="page-section">
-                <div class="container">
-                    <h2 class="page-title">ACCESS</h2>
-                    <div class="access-grid">
-                        <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2915.656511529237!2d141.3486182154794!3d43.05603797914644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0b298e1e1f76f7%3A0x6e35992634d3f54d!2z6L2s5Lu25Yy66Lyd5oSb55S6!5e0!3m2!1sja!2sjp!4v1663124847528!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        <div class="info-box">
-                            <ul class="info-list">
-                                <li class="info-item">
-                                    <span class="info-label">住所</span>
-                                    <span>〒060-0001 北海道札幌市中央区北1条西2丁目</span>
-                                </li>
-                                <li class="info-item">
-                                    <span class="info-label">営業時間</span>
-                                    <span>平日 10:00-20:00 / 土日祝 9:00-19:00</span>
-                                </li>
-                                <li class="info-item">
-                                    <span class="info-label">定休日</span>
-                                    <span>毎週火曜日、第3月曜日</span>
-                                </li>
-                                <li class="info-item">
-                                    <span class="info-label">電話番号</span>
-                                    <span>011-123-4567</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-    </main>
-
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <div class="footer-logo">Lumière</div>
-            <p>〒060-0001 北海道札幌市中央区北1条西2丁目</p>
-            <p>TEL: 011-123-4567</p>
-            <div class="social-links">
-                <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919 4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg></a>
-                <a href="#" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <!-- ブランドストーリー -->
+        <section class="text-center" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4">私たちのこだわり</h2>
+            <!-- CSSで画像を読み込むための空のdiv -->
+            <div class="brand-story-image my-8 rounded-xl overflow-hidden shadow-lg max-w-4xl mx-auto" data-aos="zoom-in">
             </div>
-            <p class="copyright">&copy; 2024 Hair Salon Lumière. All Rights Reserved.</p>
-        </div>
-    </footer>
-    
-    <script src="script.js"></script>
-    <script>
-    // Script for menu image preview
-    document.addEventListener('DOMContentLoaded', () => {
-        // This check ensures the script runs only on larger screens where the preview is visible
-        if (window.matchMedia('(min-width: 992px)').matches) {
-            const menuItems = document.querySelectorAll('#menu-content .menu-item');
-            const previewImage = document.getElementById('menu-preview-image');
-            const defaultImageSrc = previewImage.src;
-            let imageSliderInterval = null; // To hold the interval ID
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed">
+                コーヒーの美味しさを決めるのは「鮮度」です。大規模流通では失われがちな、焙煎したての最高の香りと味わいを、ご自宅にお届けしたい。Real Dynamicは、全国の小規模焙煎所と提携し、ご注文を受けてから丁寧に焙煎・梱包。街の隠れた名店とあなたを繋ぎ、毎日のコーヒータイムを特別な体験に変えます。
+            </p>
+        </section>
 
-            if (menuItems.length > 0 && previewImage) {
-                menuItems.forEach(item => {
-                    item.addEventListener('mouseenter', () => {
-                        clearInterval(imageSliderInterval); // Clear any previous slideshow
-                        
-                        const imageUrlsString = item.getAttribute('data-image');
-                        const imageUrls = imageUrlsString.split(',');
+        <!-- サービスの流れ -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-12" data-aos="fade-up">サービスはたったの3ステップ</h2>
+            <div class="flex flex-col md:flex-row justify-center items-start md:space-x-8 space-y-12 md:space-y-0">
+                <div class="flex-1 max-w-sm" data-aos="fade-right">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5l-5-5 1.41-1.41L11 14.67l7.59-7.59L20 8.5l-9 9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1. お好みのプランを選ぶ</h3>
+                    <p class="text-sm text-gray-600">あなたのライフスタイルに合わせたプランを見つけてください。</p>
+                </div>
+                <div class="flex-1 max-w-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M22 6h-3.05l-4-4-2.47 2.47L11 5.41V2h-2v4H7V2H5v4H2c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 15H2V8h20v13zm-8-9c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm2-7V2h-4v4h4z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">2. 毎月ポストに届く</h3>
+                    <p class="text-sm text-gray-600">焙煎したての豆を、ご指定の住所へ直接お届けします。</p>
+                </div>
+                <div class="flex-1 max-w-sm" data-aos="fade-left" data-aos-delay="400">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5l-5-5 1.41-1.41L11 14.67l7.59-7.59L20 8.5l-9 9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">3. 自宅で淹れるだけ</h3>
+                    <p class="text-sm text-gray-600">こだわりの一杯が、あなたの日常を豊かに彩ります。</p>
+                </div>
+            </div>
+        </section>
 
-                        if (imageUrls.length > 1) {
-                            // It's a slideshow item (more than one image)
-                            let currentImageIndex = 0;
+        <!-- 商品ラインナップ/プラン -->
+        <section id="plans" class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">商品ラインナップ</h2>
 
-                            const updateImage = () => {
-                                previewImage.style.opacity = 0;
-                                setTimeout(() => {
-                                    previewImage.src = imageUrls[currentImageIndex];
-                                    previewImage.style.opacity = 1;
-                                    currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
-                                }, 200);
-                            };
+            <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-8 space-y-8 lg:space-y-0">
+                <!-- スタンダードプラン -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xs transition-all duration-300" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-2">スタンダード</h3>
+                    <p class="text-sm text-gray-500">まずは試したい方に</p>
+                    <p class="text-4xl font-extrabold text-orange-500 mt-4">
+                        ¥2,980<span class="text-base text-gray-500 font-normal">/月</span>
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">1杯あたり約150円</p>
+                    <ul class="text-left mt-6 space-y-2 text-gray-700">
+                        <li><span class="text-orange-500 font-bold">✓</span> 200g × 2種類 (計400g)</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 初回送料無料</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 毎月新しい豆との出会い</li>
+                    </ul>
+                    <a href="#" class="mt-8 inline-block w-full py-3 bg-gray-300 text-gray-600 font-bold rounded-lg hover:bg-gray-400 transition-all duration-300">
+                        このプランにする
+                    </a>
+                </div>
 
-                            updateImage(); // Show the first image immediately
-                            imageSliderInterval = setInterval(updateImage, 3000); // Change every 3 seconds
+                <!-- プレミアムプラン -->
+                <div class="relative bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm lg:scale-110 lg:z-10 border-4 border-orange-500 premium-card transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-4 -right-4 bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-full transform rotate-12 badge-wiggle-animation">
+                        人気No.1
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">プレミアム</h3>
+                    <p class="text-sm text-gray-500">毎月の新しい出会いを楽しみたい方に</p>
+                    <p class="text-5xl font-extrabold text-orange-500 mt-4">
+                        ¥4,980<span class="text-lg text-gray-500 font-normal">/月</span>
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">1杯あたり約120円</p>
+                    <ul class="text-left mt-6 space-y-2 text-gray-700">
+                        <li><span class="text-orange-500 font-bold">✓</span> 200g × 4種類 (計800g)</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 初回送料無料</li>
+                        <li><span class="text-orange-500 font-bold">✓</span> 毎月新しい豆との出会い</li>
+                        <li class="font-bold text-orange-600"><span class="text-orange-500 font-bold">✓</span> 初回限定ドリップバッグおまけ</li>
+                    </ul>
+                    <a href="#" class="mt-8 inline-block w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105">
+                        今すぐ始める
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                        } else {
-                            // It's a single image item
-                            const imageUrl = imageUrls[0];
-                            if (imageUrl && previewImage.src !== imageUrl) {
-                                 previewImage.style.opacity = 0;
-                                 setTimeout(() => {
-                                    previewImage.src = imageUrl;
-                                    previewImage.style.opacity = 1;
-                                }, 200);
-                            }
-                        }
+        <!-- ライフスタイル写真/動画 -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">コーヒーが暮らしを変える</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- CSSで画像を読み込むための空のdiv -->
+                <div class="lifestyle-image-1 rounded-xl overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="100"></div>
+                <div class="lifestyle-image-2 rounded-xl overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="200"></div>
+                <div class="lifestyle-image-3 rounded-xl overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="300"></div>
+            </div>
+        </section>
+
+        <!-- お客様の声 -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">お客様の声</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up">
+                    <p class="text-sm font-light italic text-gray-600">
+                        "毎朝の習慣が変わりました！新しい豆が届くのが楽しみで、毎朝ワクワクしながら起きています。"
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-sm font-light italic text-gray-600">
+                        "様々な地域の豆を試せるのがいいですね。自分で選ぶ手間がなく、新しい出会いを楽しめるのが最高です。"
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-sm font-light italic text-gray-600">
+                        "鮮度が全然違います。淹れた瞬間の香りが部屋中に広がり、まるで焙煎所のようです。この品質でこの価格は信じられません。"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- よくある質問 -->
+        <section class="mt-16 sm:mt-24 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">よくある質問</h2>
+            <div class="max-w-3xl mx-auto text-left space-y-4">
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-right">
+                    <h3 class="text-lg font-semibold mb-2">Q. 解約はいつでもできますか？</h3>
+                    <p class="text-sm text-gray-600">A. はい、いつでもオンラインで簡単に解約手続きが可能です。最低契約期間はありませんのでご安心ください。</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-left">
+                    <h3 class="text-lg font-semibold mb-2">Q. 配送日を選ぶことはできますか？</h3>
+                    <p class="text-sm text-gray-600">A. はい、可能です。初回お申し込み時と、毎月のマイページからお届け日をご指定いただけます。</p>
+                    <div id="calendar" class="mt-4">
+                        <!-- カレンダーUIをここに実装 -->
+                        <div class="w-full bg-gray-100 p-4 rounded-lg text-center">
+                            <p class="font-semibold text-gray-700">お届け日選択カレンダー</p>
+                            <div class="grid grid-cols-7 gap-1 mt-2 text-xs text-gray-500">
+                                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 mt-1 text-sm font-bold">
+                                <div></div><div></div><div class="text-gray-400">1</div><div class="text-gray-400">2</div><div class="text-gray-400">3</div><div class="text-gray-400">4</div><div class="text-gray-400">5</div>
+                                <div class="p-2 rounded-full text-orange-500 bg-white shadow">6</div>
+                                <div class="p-2 rounded-full bg-orange-500 text-white shadow-lg">7</div>
+                                <div class="p-2 rounded-full bg-white shadow">8</div>
+                                <div class="p-2 rounded-full bg-white shadow">9</div>
+                                <div class="p-2 rounded-full bg-white shadow">10</div>
+                                <div class="p-2 rounded-full bg-white shadow">11</div>
+                                <div class="p-2 rounded-full bg-white shadow">12</div>
+                                <!-- ... and so on -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-up">
+                    <h3 class="text-lg font-semibold mb-2">Q. どのような支払い方法がありますか？</h3>
+                    <p class="text-sm text-gray-600">A. クレジットカード（Visa, Mastercard, JCB, Amex）に対応しております。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- クロージング/再CTA -->
+        <section class="mt-16 sm:mt-24 text-center bg-white p-8 rounded-2xl shadow-xl" data-aos="fade-up">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4">
+                今月の締め切りは<span class="text-orange-500">○月○日まで</span>！
+            </h2>
+            <p class="text-lg text-gray-600 mb-6">
+                多くのお客様に選ばれている<span class="font-bold text-orange-500">プレミアムプラン</span>なら、限定特典としてドリップバッグのおまけ付き！
+            </p>
+            <a href="#plans" class="inline-block px-10 py-4 bg-orange-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105">
+                        今すぐ始める
+                    </a>
+                </section>
+        
+            </main>
+        
+            <footer class="text-center py-8 text-gray-500 text-sm">
+                <p>&copy; 2023 Real Dynamic. All Rights Reserved.</p>
+            </footer>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50,
                     });
                 });
-
-                const menuList = document.querySelector('#menu-content .menu-list');
-                if (menuList) {
-                     menuList.addEventListener('mouseleave', () => {
-                        clearInterval(imageSliderInterval); // Stop the slideshow
-                        if (previewImage.src !== defaultImageSrc) {
-                            previewImage.style.opacity = 0;
-                            setTimeout(() => {
-                                previewImage.src = defaultImageSrc;
-                                previewImage.style.opacity = 1;
-                            }, 200);
-                        }
-                    });
-                }
-            }
-        }
-    });
-    </script>
-</body>
-</html>
-
+            </script>
+        </body>
+        </html>
